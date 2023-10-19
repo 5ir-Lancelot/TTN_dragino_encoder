@@ -7,7 +7,7 @@ function Decoder(bytes, port) {
 	value=bytes[2]<<8 | bytes[3];
 	if(bytes[2] & 0x80)
 	{value |= 0xFFFF0000;}
-  data.temp_DS18B20=(value/10).toFixed(2);//DS18B20,temperature
+  data.temp_DS18B20=Number((value/10).toFixed(2));//DS18B20,temperature
   
 	if(mod===0)
 	{
@@ -17,7 +17,7 @@ function Decoder(bytes, port) {
 	data.temp_SOIL=Number((value/100).toFixed(2));//temp_SOIL,temperature   Lukas edit output as number
 	else if((value & 0x8000)>>15 === 1)
 	data.temp_SOIL=Number(((value-0xFFFF)/100).toFixed(2)); // Lukas edit output as number
-	data.water_SOIL=((bytes[4]<<8 | bytes[5])/100).toFixed(2);//water_SOIL,Humidity,units:%
+	data.water_SOIL=Number(((bytes[4]<<8 | bytes[5])/100).toFixed(2));//water_SOIL,Humidity,units:% Lukas edit output as number
                 data.conduct_SOIL=bytes[8]<<8 | bytes[9];
 	}
 	else
